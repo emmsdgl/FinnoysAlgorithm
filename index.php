@@ -799,8 +799,8 @@ if ($_POST && isset($_POST['assign_task'])) {
             rows.forEach(row => {
                 const text = row.textContent.toLowerCase();
                 const priority = row.querySelector('.badge').textContent.toLowerCase().trim();
-                const statusCell = row.cells[6]; // Status column
-                const status = statusCell.textContent.toLowerCase().replace(/\s+/g, '_').trim();
+                const statusCell = row.cells[5]; // Status column (should be 5, not 6)
+                const statusText = statusCell.querySelector('small').textContent.toLowerCase().replace(/\s+/g, '_').trim();
                 let show = true;
                 // Text search
                 if (searchTerm && !text.includes(searchTerm)) {
@@ -811,7 +811,7 @@ if ($_POST && isset($_POST['assign_task'])) {
                     show = false;
                 }
                 // Status filter
-                if (statusFilter && !status.includes(statusFilter)) {
+                if (statusFilter && statusFilter !== '' && statusText !== statusFilter) {
                     show = false;
                 }
                 // Date filter
